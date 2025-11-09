@@ -1,3 +1,35 @@
+// === VIDEO INTRO HANDLER ===
+document.addEventListener('DOMContentLoaded', () => {
+    const videoIntro = document.getElementById('video-intro');
+    const introVideo = document.getElementById('intro-video');
+    const skipButton = document.getElementById('skip-video');
+
+    // Add video-playing class to body
+    document.body.classList.add('video-playing');
+
+    // Function to end video intro
+    function endVideoIntro() {
+        videoIntro.classList.add('hidden');
+        document.body.classList.remove('video-playing');
+
+        // Remove video element after transition
+        setTimeout(() => {
+            videoIntro.remove();
+        }, 1000);
+    }
+
+    // When video ends naturally
+    introVideo.addEventListener('ended', endVideoIntro);
+
+    // Skip button functionality
+    skipButton.addEventListener('click', endVideoIntro);
+
+    // Fallback: If video fails to load, show page after 2 seconds
+    introVideo.addEventListener('error', () => {
+        setTimeout(endVideoIntro, 2000);
+    });
+});
+
 // === ADVANCED SCROLL-TRIGGERED ANIMATIONS ===
 const observerOptions = {
     threshold: 0.15,
@@ -8,11 +40,6 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-
-            // Trigger counter animation if it's a stat
-            if (entry.target.classList.contains('hero-stats')) {
-                animateCounters();
-            }
         }
     });
 }, observerOptions);
@@ -20,11 +47,9 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all animated elements
 document.addEventListener('DOMContentLoaded', () => {
     const problemCards = document.querySelectorAll('.problem-card');
-    const heroStats = document.querySelector('.hero-stats');
     const clientLogos = document.querySelectorAll('.client-logo');
 
     problemCards.forEach(card => observer.observe(card));
-    if (heroStats) observer.observe(heroStats);
     clientLogos.forEach(logo => observer.observe(logo));
 
     // Start parallax after page load
@@ -32,41 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize smart navigation
     initSmartNav();
-
-    // Trigger counter animation on hero load
-    setTimeout(() => {
-        animateCounters();
-    }, 1000);
 });
-
-// === COUNTER ANIMATION ===
-let countersAnimated = false;
-
-function animateCounters() {
-    if (countersAnimated) return;
-    countersAnimated = true;
-
-    const counters = document.querySelectorAll('.stat-number');
-
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
-        let current = 0;
-
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target;
-            }
-        };
-
-        updateCounter();
-    });
-}
 
 // === MULTI-LAYER PARALLAX SCROLLING ===
 function initParallax() {

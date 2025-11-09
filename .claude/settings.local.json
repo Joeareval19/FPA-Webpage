@@ -4,7 +4,11 @@
       "Bash(assets/README.md)",
       "Bash(python -m http.server:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Vegas Consulting Partners landing page\n\nFeatures:\n- Black & gold luxury consulting theme\n- Multi-layer parallax scrolling with mouse tracking\n- Animated hero section with word-by-word reveals\n- Dynamic stat counters (95% retention, 40+ restaurants, 3X ROI)\n- Scroll-triggered animations for all sections\n- Interactive problem cards with shimmer effects\n- Rotating 3D icon animations on hover\n- Client carousel with auto-play and manual controls\n- Smart navigation (hides on scroll down, shows on scroll up)\n- Floating particles and animated data flow lines\n- Fully responsive design\n- Contact section with clickable email/phone\n- State-of-the-art animations and micro-interactions\n\nTech Stack:\n- Pure HTML5, CSS3, JavaScript (no frameworks)\n- GPU-accelerated animations\n- Intersection Observer API\n- RequestAnimationFrame for smooth counters\n\n🤖 Generated with Claude Code (https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
