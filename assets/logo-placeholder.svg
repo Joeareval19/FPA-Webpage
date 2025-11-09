@@ -1,0 +1,13 @@
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="75" cy="75" r="70" fill="rgba(212, 175, 55, 0.1)" stroke="rgba(212, 175, 55, 0.5)" stroke-width="3"/>
+
+  <!-- VCP Letters -->
+  <text x="75" y="90" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#d4af37" text-anchor="middle">VCP</text>
+
+  <!-- Restaurant Icon -->
+  <g transform="translate(75, 35)">
+    <path d="M -8,-5 L -8,5 M -4,-7 L -4,7 M 0,-5 L 0,5 M 4,-3 L 4,8 M 8,-1 L 8,8"
+          stroke="#d4af37" stroke-width="2.5" fill="none" opacity="0.9"/>
+  </g>
+</svg>

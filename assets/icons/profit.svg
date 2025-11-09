@@ -1,0 +1,6 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="white" stroke-width="2.5">
+    <path d="M 25 5 L 28 18 L 42 18 L 31 26 L 35 40 L 25 32 L 15 40 L 19 26 L 8 18 L 22 18 Z"/>
+    <text x="25" y="28" font-size="14" font-weight="bold" fill="white" text-anchor="middle">$</text>
+  </g>
+</svg>
