@@ -48,9 +48,11 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     const problemCards = document.querySelectorAll('.problem-card');
     const clientLogos = document.querySelectorAll('.client-logo');
+    const planets = document.querySelectorAll('.floating-planet');
 
     problemCards.forEach(card => observer.observe(card));
     clientLogos.forEach(logo => observer.observe(logo));
+    planets.forEach(planet => observer.observe(planet));
 
     // Start parallax after page load
     initParallax();

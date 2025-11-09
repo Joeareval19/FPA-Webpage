@@ -547,6 +547,54 @@ body {
 .problem-card:nth-child(3).visible { transition-delay: 0.2s; }
 .problem-card:nth-child(4).visible { transition-delay: 0.3s; }
 
+/* === FLOATING PLANETS === */
+.floating-planet {
+    position: absolute;
+    width: 250px;
+    height: auto;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-planet.visible {
+    opacity: 0.8;
+}
+
+.planet-jupiter {
+    top: 20%;
+    right: 5%;
+    transform: translateX(100px) rotate(0deg);
+    animation: floatPlanet 8s ease-in-out infinite;
+}
+
+.planet-jupiter.visible {
+    transform: translateX(0) rotate(0deg);
+}
+
+.planet-neptune {
+    bottom: 15%;
+    left: 5%;
+    transform: translateX(-100px) rotate(0deg);
+    animation: floatPlanet 10s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.planet-neptune.visible {
+    transform: translateX(0) rotate(0deg);
+}
+
+@keyframes floatPlanet {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
 .problem-card:hover {
     transform: translateY(-10px) scale(1.02);
     background: rgba(255, 255, 255, 0.04);
