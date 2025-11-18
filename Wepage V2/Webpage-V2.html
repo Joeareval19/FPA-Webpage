@@ -65,15 +65,28 @@
         /* Footer link styles */
         footer a {
             color: #ffffff;
-            transition: color 0.3s ease;
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.125rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fdc435;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        footer a:hover::after {
+            width: 100%;
         }
 
         footer a:visited {
             color: #5c5c5c;
-        }
-
-        footer a:hover {
-            color: #fdc435;
         }
 
         /* Logo hover effect */
@@ -128,6 +141,162 @@
             white-space: nowrap;
         }
 
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 6rem;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0s 0.4s;
+            pointer-events: none;
+            background: #1a1a1a;
+            border-top: 1px solid rgba(192, 192, 192, 0.3);
+            border-bottom: 1px solid rgba(192, 192, 192, 0.3);
+            z-index: 45;
+            overflow-y: auto;
+            padding: 0 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            max-height: 80vh;
+            padding: 3rem 2rem 3rem 2rem;
+            pointer-events: all;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0s 0s;
+        }
+
+        .dropdown-menu-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .dropdown-menu-header {
+            margin-bottom: 3rem;
+        }
+
+        .dropdown-menu-header a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .dropdown-menu-header a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: rgba(192, 192, 192, 0.8);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu-header a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-menu-header svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #fdc435;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu-header a:hover svg {
+            transform: translateX(4px);
+        }
+
+        .dropdown-menu h2 {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 1rem;
+            text-align: left;
+            text-transform: lowercase;
+            letter-spacing: 0.08em;
+        }
+
+        .dropdown-menu ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.25rem 0.75rem;
+            list-style: none;
+        }
+
+        .dropdown-menu li {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .dropdown-menu ul a {
+            display: inline-block;
+            padding: 0.35rem 0;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .dropdown-menu ul a::after {
+            content: '';
+            position: absolute;
+            bottom: 0.15rem;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: rgba(192, 192, 192, 0.8);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu ul a:hover {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .dropdown-menu ul a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+        }
+
+        .dropdown-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown.active .dropdown-chevron {
+            transform: rotate(180deg);
+        }
+
         /* Info section slide up animation */
         .info-section {
             opacity: 0;
@@ -149,6 +318,18 @@
         /* Hero Title Animation */
         .hero-title {
             animation: slideUpBlur 0.8s ease-out forwards;
+        }
+
+        /* Hero title wrapper for parallax effect */
+        .hero-title-wrapper {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* Info section wrapper for parallax effect */
+        .info-section-wrapper {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
         }
 
         @keyframes slideUpBlur {
@@ -311,6 +492,50 @@
                 
                 <!-- Nav Links (Desktop) -->
                 <div class="hidden md:flex gap-8 items-center">
+                    <!-- What We Do Dropdown -->
+                    <div class="dropdown">
+                        <div id="whatWeDoToggle" class="dropdown-toggle text-gray-300 hover:text-white transition-colors">
+                            <span>What We Do</span>
+                            <svg class="dropdown-chevron w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                        <div id="whatWeDoMenu" class="dropdown-menu">
+                            <div class="dropdown-menu-content">
+                                <div class="dropdown-menu-header">
+                                    <a href="what-we-do.html">
+                                        <span>What We Do</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                <h2>Capabilities</h2>
+                                <ul>
+                                    <li><a href="services/cloud.html">Cloud</a></li>
+                                    <li><a href="services/customer-service.html">Customer Service</a></li>
+                                    <li><a href="services/cybersecurity.html">Cybersecurity</a></li>
+                                    <li><a href="services/data-and-ai.html">Data and Artificial Intelligence</a></li>
+                                    <li><a href="services/digital-engineering.html">Digital Engineering and Manufacturing</a></li>
+                                    <li><a href="services/ecosystem-partners.html">Ecosystem Partners</a></li>
+                                    <li><a href="services/emerging-technology.html">Emerging Technology</a></li>
+                                    <li><a href="services/finance-and-risk.html">Finance and Risk Management</a></li>
+                                    <li><a href="services/infrastructure.html">Infrastructure and Capital Projects</a></li>
+                                    <li><a href="services/learning.html">Learning</a></li>
+                                    <li><a href="services/managed-services.html">Managed Services</a></li>
+                                    <li><a href="services/marketing.html">Marketing and Experience</a></li>
+                                    <li><a href="services/metaverse.html">Metaverse</a></li>
+                                    <li><a href="services/sales-commerce.html">Sales and Commerce</a></li>
+                                    <li><a href="services/strategy.html">Strategy</a></li>
+                                    <li><a href="services/supply-chain.html">Supply Chain</a></li>
+                                    <li><a href="services/sustainability.html">Sustainability</a></li>
+                                    <li><a href="services/talent.html">Talent and Organization</a></li>
+                                    <li><a href="services/tech-transformation.html">Technology Transformation</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                     <a href="#concept" class="text-gray-300 hover:text-white transition-colors">The Concept</a>
                     <a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a>
                     <a href="#collections" class="text-gray-300 hover:text-white transition-colors">Collections</a>
@@ -341,7 +566,7 @@
                 <div class="container mx-auto max-w-7xl px-6 relative z-10">
                     <div class="flex justify-between items-start">
                         <!-- Left side - Title -->
-                        <div>
+                        <div class="hero-title-wrapper">
                             <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter hero-title text-left text-white">
                                 <span class="hero-line-1">Optimizing the</span>
                                 <br>
@@ -354,7 +579,8 @@
                         </div>
 
                         <!-- Right side - Info Section -->
-                        <div class="max-w-xs mt-32 info-section">
+                        <div class="info-section-wrapper max-w-xs mt-32">
+                            <div class="info-section">
                             <!-- Yellow accent line -->
                             <div class="w-12 h-1 bg-yellow-primary mb-6"></div>
 
@@ -369,6 +595,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                 </svg>
                             </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -785,6 +1012,34 @@
     <!-- Hero Word Rotating Animation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // What We Do Dropdown Menu
+            const whatWeDoToggle = document.getElementById('whatWeDoToggle');
+            const whatWeDoMenu = document.getElementById('whatWeDoMenu');
+            const dropdown = whatWeDoToggle.closest('.dropdown');
+
+            // Toggle menu on click
+            whatWeDoToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                whatWeDoMenu.classList.toggle('active');
+                dropdown.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (whatWeDoMenu.classList.contains('active') && !whatWeDoMenu.contains(e.target) && !whatWeDoToggle.contains(e.target)) {
+                    whatWeDoMenu.classList.remove('active');
+                    dropdown.classList.remove('active');
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && whatWeDoMenu.classList.contains('active')) {
+                    whatWeDoMenu.classList.remove('active');
+                    dropdown.classList.remove('active');
+                }
+            });
+
             // Optimized Particle Network Animation
             const canvas = document.getElementById('particleCanvas');
             const ctx = canvas.getContext('2d');
@@ -951,6 +1206,21 @@
                 let fadePoint = heroHeight * 0.7;
                 let opacity = Math.max(0, 1 - (scrollTop / fadePoint));
                 heroSection.style.opacity = opacity;
+
+                // Parallax drift effect for hero title and info section
+                const heroTitleWrapper = document.querySelector('.hero-title-wrapper');
+                const infoSectionWrapper = document.querySelector('.info-section-wrapper');
+
+                // Calculate drift amount based on scroll position (max 150px drift)
+                let driftAmount = Math.min(150, scrollTop * 0.3);
+
+                // Apply transforms: title drifts left (negative X), info drifts right (positive X)
+                if (heroTitleWrapper) {
+                    heroTitleWrapper.style.transform = `translateX(-${driftAmount}px)`;
+                }
+                if (infoSectionWrapper) {
+                    infoSectionWrapper.style.transform = `translateX(${driftAmount}px)`;
+                }
 
                 // Set a timeout to run after scrolling stops
                 scrollTimeout = setTimeout(function() {

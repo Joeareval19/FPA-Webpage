@@ -52,15 +52,28 @@
         /* Footer link styles */
         footer a {
             color: #ffffff;
-            transition: color 0.3s ease;
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -0.125rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fdc435;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        footer a:hover::after {
+            width: 100%;
         }
 
         footer a:visited {
             color: #5c5c5c;
-        }
-
-        footer a:hover {
-            color: #fdc435;
         }
 
         /* Logo hover effect */
