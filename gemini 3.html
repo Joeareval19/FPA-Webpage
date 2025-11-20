@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sōra - Next Gen Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #050505; /* Deep black/grey */
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND GLOWS --- */
+        /* Bottom Right Glow (Yellow/Orange) */
+        .glow-bottom {
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 200, 0, 0.25) 0%, rgba(255, 120, 0, 0.15) 40%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Top Left Glow (Blueish to balance) */
+        .glow-top {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(40, 100, 255, 0.15) 0%, rgba(100, 50, 255, 0.05) 50%, transparent 70%);
+            filter: blur(100px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 10%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 50;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .btn-signup {
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .btn-signup:hover {
+            background: #eee;
+        }
+
+        /* --- MAIN CONTENT WRAPPER --- */
+        /* This pushes the footer to the bottom */
+        main {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            padding: 180px 10% 100px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .badge span {
+            color: #ffcc00; /* Match theme */
+            margin-right: 8px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            font-weight: 600;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- CTA SECTION (Pre-Footer) --- */
+        .cta-section {
+            padding: 80px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            margin-top: auto; /* Pushes towards bottom if space allows */
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        .cta-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            outline: none;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Corner brackets for button effect */
+        .cta-button::before, .cta-button::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: rgba(255, 255, 255, 0.5);
+            border-style: solid;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        .cta-button::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+        .cta-button::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+        /* --- FOOTER MAIN --- */
+        footer {
+            width: 100%;
+            /* Glassmorphism */
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.6) 0%, rgba(10, 10, 10, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 80px 10% 40px 10%;
+            position: relative;
+            z-index: 10;
+            margin-top: 40px; /* Breathing room from CTA */
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 80px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- LEFT COLUMN (Brand) --- */
+        .brand-column {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .brand-description {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 320px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- RIGHT COLUMNS (Links) --- */
+        .links-container {
+            display: flex;
+            gap: 100px;
+        }
+
+        .link-column h4 {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .link-column ul {
+            list-style: none;
+        }
+
+        .link-column li {
+            margin-bottom: 16px;
+        }
+
+        .link-column a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .link-column a:hover {
+            color: white;
+        }
+
+        /* --- FOOTER BOTTOM (Legal) --- */
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .legal-links a {
+            color: #666;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .legal-links a:hover {
+            color: #999;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .nav-links {
+                display: none; /* Hidden for mobile demo simplicity */
+            }
+
+            .glow-bottom {
+                width: 100%;
+                right: 0;
+                bottom: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 60px;
+            }
+            
+            .links-container {
+                flex-wrap: wrap;
+                gap: 50px;
+                justify-content: flex-start;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .legal-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Effects -->
+    <div class="glow-top"></div>
+    <div class="glow-bottom"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <i class="fa-solid fa-star-of-life" style="color: #ffcc00;"></i>
+            Sōra
+        </a>
+        <div class="nav-links">
+            <a href="#">Product</a>
+            <a href="#">Solutions</a>
+            <a href="#">Enterprise</a>
+            <a href="#">Pricing</a>
+        </div>
+        <div class="nav-auth">
+            <a href="#" class="btn-login">Log In</a>
+            <a href="#" class="btn-signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="badge"><span>★</span> v2.0 is now available</div>
+            <h1 class="hero-title">The intelligent cloud<br>for modern apps.</h1>
+            <p class="hero-subtitle">
+                Deploy, scale, and monitor your AI applications with infrastructure designed for the next generation of computing.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">Start Building</a>
+                <a href="#" class="btn-secondary">Read Documentation</a>
+            </div>
+        </section>
+
+        <!-- CTA / Pre-Footer Section -->
+        <div class="cta-section">
+            <p style="color: #888; margin-bottom: 10px; font-size: 0.9rem;">Get Early Access</p>
+            <h2>Ready to step in?</h2>
+            <button class="cta-button">Start Building</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            
+            <div class="brand-column">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-star-of-life"></i>
+                    Sōra
+                </div>
+                <p class="brand-description">
+                    The infrastructure that empowers the next generation of intelligent applications to run faster and deliver real results.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-reddit-alien"></i></a>
+                </div>
+            </div>
+
+            <div class="links-container">
+                <div class="link-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Overview</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="link-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2025 Sōra. All rights reserved.</div>
+            <div class="legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

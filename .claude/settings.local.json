@@ -16,7 +16,11 @@
       "Bash(find:*)",
       "Bash(cat:*)",
       "Bash(convert:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git fetch:*)",
+      "Bash(docker build:*)",
+      "Bash(docker run:*)",
+      "Bash(start \"gemini 3.2.html\")"
     ],
     "deny": [],
     "ask": []
